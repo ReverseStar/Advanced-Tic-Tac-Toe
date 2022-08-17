@@ -1,0 +1,137 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding:0;
+}
+
+:root{
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * .65);
+}
+
+.board{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    grid-template-columns: repeat(3,auto);
+    gap: 1px;
+}
+
+.cell{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.cell.x::before,
+.cell.x::after{
+    background-color: black;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after{
+    background-color: lightgrey;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after{
+    content: '';
+    position: absolute;
+    width: calc(var(--cell-size) * .10);
+    height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before{
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after{
+    transform: rotate(-45deg);
+}
+
+
+.cell.o::before,
+.cell.o::after{
+    background-color: black;
+}
+
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after{
+    background-color: lightgrey;
+}
+
+.cell.o::before,
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after{
+    content: '';
+    position: absolute;
+    width: var(--mark-size);
+    height: var(--mark-size);
+    border-radius: 50%;
+}
+
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before{
+    width: var(--mark-size);
+    height: var(--mark-size);
+}
+
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after{
+    width: calc(var(--mark-size) * .7);
+    height: calc(var(--mark-size) * .7);
+    background-color: white;
+}
+
+.cell.x,
+.cell.o{
+    cursor: not-allowed;
+}
+
+
+.winning-message{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+}
+
+.winning-message.show{
+    display: flex;
+}
+
+.winning-message button{
+    font-size: 3rem;
+    background-color: #fff;
+    border: 1px solid black;
+    padding: .25rem .5rem;
+    cursor: pointer;
+}
+
+.winning-message button:hover{
+    background-color: #000;
+    color: white;
+    border-color: red;
+}
